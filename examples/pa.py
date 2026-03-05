@@ -82,7 +82,7 @@ def build_paged_attention_program(
 
             # Chunked loop over batch: pl.parallel, chunk → expansion (bounds are compile-time constants)
             for b_idx in pl.parallel(0, BATCH_CFG, 1, chunk=BATCH_CHUNK):
-                with pl.incore():
+                #with pl.incore():
                     cur_seq = pl.tensor.read(context_lens, [b_idx])
                     bn_this_batch = (cur_seq + BLOCK_SIZE_CFG - 1) // BLOCK_SIZE_CFG
                     # Chunked loop over query-tile groups: pl.parallel, chunk → expansion
